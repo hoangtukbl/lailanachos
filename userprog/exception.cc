@@ -857,24 +857,60 @@ void ExceptionHandler(ExceptionType which)
 			break;
 		}
 		// int Receive(int socketid, char *buffer, int len)
-		case SC_Exec:
-		{
-	    	int virtAddr;
-	    	virtAddr = kernel->machine->ReadRegister(4);
-		    char *name;
-		    name = UserToKernel(virtAddr, MAX_BUFFER + 1); 
-		    int priority = kernel->machine->ReadRegister(5);
+		// case SC_Exec:
+		// {
+	    // 	int virtAddr;
+	    // 	virtAddr = kernel->machine->ReadRegister(4);
+		//     char *name;
+		//     name = UserToKernel(virtAddr, MAX_BUFFER + 1); 
+		//     int priority = kernel->machine->ReadRegister(5);
 
-		    if (name == NULL)
-		    {
-		        DEBUG('a', "\n Not enough memory in System");
-		        printf("\n Not enough memory in System");
-		        return;
-		    }
+		//     if (name == NULL)
+		//     {
+		//         DEBUG('a', "\n Not enough memory in System");
+		//         printf("\n Not enough memory in System");
+		//         return;
+		//     }
 
-		    int id = pTab->ExecUpdate(name);
-		    return id;
-		}
+		//     int id = pTab->ExecUpdate(name);
+		//     return id;
+		// }
+		 case SC_Exec:
+        {
+            int virtualAddr = kernel->machine->ReadRegister(4); // Doc tham so dia chi buffer
+            char *name;
+            name = User2System(virtualAddr, 128+ 1);   // Lay ten file 
+            
+            if (name == NULL)
+			    {
+			        DEBUG('a', "Name can not be NULL");
+			        printf("Name can not be NULL");
+			        kernel->machine->WriteRegister(2, -1);
+			        return;
+			    }
+			    // Mo mot file moi
+			    OpenFile *oFile = kernel->fileSystem->Open(name);
+		    if (oFile == NULL)
+			    {
+			        printf("Can't open this file.\n");
+			        kernel->machine->WriteRegister(2, -1);
+			        return;
+			    }
+		    delete oFile;
+		    //semaphore
+		    // int id = kernel->pTab->ExecUpdate(name);
+		    kernel->machine->WriteRegister(2, id);
+
+            // SysExec(name);
+            // if (name != NULL)   // Neu ten file khac null thi giai phong bo nho
+            //     delete[] name;
+
+            IncreasePC();
+            return;
+
+            ASSERTNOTREACHED();
+            break;
+        }
 		case SC_Receive:
 		{
 			int sockID;
