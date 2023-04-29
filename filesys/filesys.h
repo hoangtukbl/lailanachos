@@ -37,6 +37,8 @@
 #include "sysdep.h"
 #include "openfile.h"
 
+typedef int OpenFileID;
+
 #ifdef FILESYS_STUB 		// Temporarily implement file system calls as 
 				// calls to UNIX, until the real file system
 				// implementation is available

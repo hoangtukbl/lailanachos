@@ -28,6 +28,29 @@ int SysAdd(int op1, int op2)
   return op1 + op2;
 }
 
+// void SysExec(char *name)
+// {
+//     // Khi name == NULL, thong bao loi
+//     if (name == NULL)
+//     {
+//         DEBUG('a', "Name can not be NULL");
+//         printf("Name can not be NULL");
+//         kernel->machine->WriteRegister(2, -1);
+//         return;
+//     }
+//     // Mo mot file moi
+//     OpenFile *oFile = kernel->fileSystem->Open(name);
+//     if (oFile == NULL)
+//     {
+//         printf("Can't open this file.\n");
+//         kernel->machine->WriteRegister(2, -1);
+//         return;
+//     }
+//     delete oFile;
+//     int id = kernel->pTab->ExecUpdate(name);
+//     kernel->machine->WriteRegister(2, id);
+// }
+
 #define MAX_NUM_LENGTH 11 /* maximum length of an interger (included the minus sign) */
 /* A buffer to read and write number */
 char _numberBuffer[MAX_NUM_LENGTH + 2];

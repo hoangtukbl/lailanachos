@@ -875,7 +875,7 @@ void ExceptionHandler(ExceptionType which)
 		//     int id = pTab->ExecUpdate(name);
 		//     return id;
 		// }
-		 case SC_Exec:
+		case SC_Exec:
         {
             int virtualAddr = kernel->machine->ReadRegister(4); // Doc tham so dia chi buffer
             char *name;
@@ -898,12 +898,12 @@ void ExceptionHandler(ExceptionType which)
 			    }
 		    delete oFile;
 		    //semaphore
-		    // int id = kernel->pTab->ExecUpdate(name);
+		    int id = kernel->pTab->ExecUpdate(name);
 		    kernel->machine->WriteRegister(2, id);
 
-            // SysExec(name);
-            // if (name != NULL)   // Neu ten file khac null thi giai phong bo nho
-            //     delete[] name;
+            
+            if (name != NULL)   // Neu ten file khac null thi giai phong bo nho
+                delete[] name;
 
             IncreasePC();
             return;

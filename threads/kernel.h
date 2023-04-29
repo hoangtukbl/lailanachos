@@ -19,6 +19,9 @@
 #include "filesys.h"
 #include "machine.h"
 #include "bitmap.h"
+#include "ptable.h"
+#include "pcb.h"
+#include "stable.h"
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <errno.h>
@@ -55,6 +58,9 @@ class Kernel {
     Alarm *alarm;		// the software alarm clock    
     Machine *machine;           // the simulated CPU
     Bitmap *physicPageTracker;
+    Semaphore *addrLock;
+    PTable *pTab;
+    STable *semTab;
     SynchConsoleInput *synchConsoleIn;
     SynchConsoleOutput *synchConsoleOut;
     SynchDisk *synchDisk;
