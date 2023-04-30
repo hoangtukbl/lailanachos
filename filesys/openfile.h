@@ -54,6 +54,7 @@ class OpenFile
 public:
 	int IDType; // 0 is file, 1 is socket
 	int type;
+	char* filename;
 	// type 0: read and write
 	// type 1: only read
 	// type 2: stdin
@@ -85,7 +86,9 @@ public:
 	{	
 		Close(file);
 	} // close the file
-
+	char* GetFilename(){
+		return this->filename;
+	}
 	int ReadAt(char *into, int numBytes, int position)
 	{
 		Lseek(file, position, 0);

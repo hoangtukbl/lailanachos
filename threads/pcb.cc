@@ -5,6 +5,7 @@
 #include "utility.h"
 #include "kernel.h"
 #include "synchconsole.h"
+#include "filesys.h"
 #include "syscall.h"
 
 void StartProcess(int id)
@@ -228,7 +229,8 @@ int PCB::Read(char *buffer, int size, OpenFileID id)
         return -1;
     }
     // Doc trong stdout
-    if (id == CONSOLE_OUTPUT)
+    if (id == 1)
+        //CONSOLE_OUTPUT == id
     {
         printf("\nError in PCB::Read: cannot read in console output.");
         return -1;
@@ -241,7 +243,8 @@ int PCB::Read(char *buffer, int size, OpenFileID id)
     }
     // Lay vi tri ban dau
     oldPos = fileTable[id]->GetCurrentPos();
-    if (id == CONSOLE_INPUT)
+    if (id == 0)
+        //CONSOLE_INPUT == id
     {
         int actualSize = readString(buffer, size);
         return actualSize;
@@ -265,7 +268,8 @@ int PCB::Write(char *buffer, int size, OpenFileID id)
         return -1;
     }
     // Ghi trong stdin
-    if (id == CONSOLE_INPUT)
+    if (id == 0)
+    //CONSOLE_INPUT == id
     {
         printf("\nError in PCB::Write: cannot write in console input.");
         return -1;
@@ -284,7 +288,8 @@ int PCB::Write(char *buffer, int size, OpenFileID id)
     }
     // Lay vi tri ban dau
     oldPos = fileTable[id]->GetCurrentPos();
-    if (id == CONSOLE_OUTPUT)
+    if (id == 1)
+    //CONSOLE_OUTPUT == id
     {
         int i = 0;
         while (buffer[i] != 0 && buffer[i] != '\n' && i < size)

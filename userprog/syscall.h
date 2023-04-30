@@ -35,6 +35,12 @@
 #define SC_ThreadExit   14
 #define SC_ThreadJoin   15
 
+// syscall semaphore
+#define SC_CreateSemaphore 16
+#define SC_Wait 17
+#define SC_Signal 18
+#define SC_GetPID 19
+
 #define SC_Add		42
 #define SC_ReadChar 67
 #define SC_PrintString 68
@@ -122,8 +128,8 @@ typedef int OpenFileId;
  * the console device.
  */
 
-//#define ConsoleInput	0  
-//#define ConsoleOutput	1  
+// #define Console_Input	0  
+// #define Console_Output	1  
  
 /* Create a Nachos file, with name "name" */
 /* Note: Create does not open the file.   */

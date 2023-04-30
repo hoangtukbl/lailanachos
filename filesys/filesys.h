@@ -94,7 +94,13 @@ class FileSystem {
 	Close(fileDescriptor); 
 	return TRUE; 
 	}
+	bool Create(char *name, int initialSize) { 
+		int fileDescriptor = OpenForWrite(name);
 
+		if (fileDescriptor == -1) return FALSE;
+		Close(fileDescriptor); 
+		return TRUE; 
+	}
 	OpenFile* Open(int SockID){
 		return new OpenFile(SockID, 0, 1);
 	}

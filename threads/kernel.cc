@@ -99,10 +99,12 @@ Kernel::Initialize()
     scheduler = new Scheduler();	// initialize the ready queue
     alarm = new Alarm(randomSlice);	// start up time slicing
     machine = new Machine(debugUserProg);
+
     physicPageTracker = new Bitmap(256);
     addrLock = new Semaphore("addrLock", 1);
     pTab = new PTable(MAX_PROCESS);
     semTab = new STable();
+    
     synchConsoleIn = new SynchConsoleInput(consoleIn); // input from stdin
     synchConsoleOut = new SynchConsoleOutput(consoleOut); // output to stdout
     synchDisk = new SynchDisk();    //

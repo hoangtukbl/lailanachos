@@ -18,10 +18,13 @@
 #include "alarm.h"
 #include "filesys.h"
 #include "machine.h"
+
 #include "bitmap.h"
 #include "ptable.h"
 #include "pcb.h"
 #include "stable.h"
+#include "synch.h"
+
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <errno.h>
@@ -31,6 +34,10 @@ class PostOfficeOutput;
 class SynchConsoleInput;
 class SynchConsoleOutput;
 class SynchDisk;
+class PTable;
+class STable;
+class Bitmap;
+class Semaphore;
 
 class Kernel {
   public:
@@ -57,10 +64,12 @@ class Kernel {
     Statistics *stats;		// performance metrics
     Alarm *alarm;		// the software alarm clock    
     Machine *machine;           // the simulated CPU
+
     Bitmap *physicPageTracker;
     Semaphore *addrLock;
     PTable *pTab;
     STable *semTab;
+
     SynchConsoleInput *synchConsoleIn;
     SynchConsoleOutput *synchConsoleOut;
     SynchDisk *synchDisk;
